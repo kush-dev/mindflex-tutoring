@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Register from './components/Register';
+import Login from './components/Login';
+import { AuthProvider } from './authContext';
+import AdminHome from './pages/admin-home';
+import TutorHome, { QuestionDetail } from './pages/tutor-home';
+import FeedSite from '../src/pages/feed-site';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Login />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/admin-home' element={<AdminHome />} />
+          <Route path='/tutor-home' element={<TutorHome />} />
+          <Route path="/question/:id" element={<QuestionDetail />} />
+          <Route path="/feed-site" element={<FeedSite />} />
+          <Route path="/questions-list" element={<TutorHome />} />
+          <Route path="/calendar" element={<FeedSite />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
-
-export default App;
